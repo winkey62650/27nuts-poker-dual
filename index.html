@@ -414,6 +414,8 @@
   <div class="table-panel panel-a">
     <span class="table-name" contenteditable="true" spellcheck="false"
       onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}">A 桌</span>
+    <div class="cups-label">总杯数</div>
+    <div class="cups-number" id="a-cups">0</div>
     <div class="level-info" id="a-level">LEVEL 1 / 25</div>
     <div class="progress-wrap"><div class="progress-fill" id="a-prog" style="width:100%"></div></div>
     <div class="timer-digits" id="a-timer">6:00</div>
@@ -428,6 +430,8 @@
   <div class="table-panel panel-b">
     <span class="table-name" contenteditable="true" spellcheck="false"
       onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}">B 桌</span>
+    <div class="cups-label">总杯数</div>
+    <div class="cups-number" id="b-cups">0</div>
     <div class="level-info" id="b-level">LEVEL 1 / 25</div>
     <div class="progress-wrap"><div class="progress-fill" id="b-prog" style="width:100%"></div></div>
     <div class="timer-digits" id="b-timer">6:00</div>
@@ -440,19 +444,17 @@
 
 </div>
 
-<!-- 左下浮动：A桌杯数 -->
+<!-- 左下浮动：A桌加减 -->
 <div class="cup-float cup-float-a">
   <span class="cup-float-label">A桌</span>
   <button class="btn-cup-sub" onclick="changeCup('a',-1)">−</button>
-  <span class="cup-float-num" id="a-cups">0</span>
   <button class="btn-cup-add" onclick="changeCup('a',1)">+</button>
 </div>
 
-<!-- 右下浮动：B桌杯数 -->
+<!-- 右下浮动：B桌加减 -->
 <div class="cup-float cup-float-b">
   <span class="cup-float-label">B桌</span>
   <button class="btn-cup-sub" onclick="changeCup('b',-1)">−</button>
-  <span class="cup-float-num" id="b-cups">0</span>
   <button class="btn-cup-add" onclick="changeCup('b',1)">+</button>
 </div>
 
