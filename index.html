@@ -221,11 +221,24 @@
     .bottombar {
       border-top: 1px solid rgba(201,149,58,0.2);
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 20px;
+      flex-direction: column;
+      align-items: stretch;
       flex-shrink: 0;
     }
+    .bottombar-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 20px 4px;
+      gap: 8px;
+    }
+    .bottombar-chips {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 20px 12px;
+    }
+    body.tv-mode .bottombar-controls { display: none; }
 
     .controls-area {
       display: flex;
@@ -301,8 +314,8 @@
       flex-shrink: 0;
     }
     .chip-wrap svg {
-      width: clamp(52px, 7vw, 90px);
-      height: clamp(52px, 7vw, 90px);
+      width: clamp(80px, 11vw, 130px);
+      height: clamp(80px, 11vw, 130px);
       filter: drop-shadow(0 3px 8px rgba(0,0,0,0.7));
     }
     .chip-label {
@@ -458,18 +471,8 @@
 
 </div>
 
-<!-- 左下角：A桌控制 + 杯数 -->
+<!-- 左下角：A桌杯数 -->
 <div class="corner-panel corner-panel-a">
-  <div class="corner-ctrl controls-area">
-    <button class="btn btn-start" onclick="startT('a')">▶ 开始</button>
-    <button class="btn btn-pause" onclick="pauseT('a')">⏸ 暂停</button>
-    <button class="btn btn-reset" onclick="resetT('a')">↺ 重置</button>
-    <div class="settings-inline">
-      <span class="settings-label">每级</span>
-      <input class="settings-input" type="number" id="dur" value="6" min="1" max="120" onchange="setDuration()">
-      <span class="settings-label">分</span>
-    </div>
-  </div>
   <div class="corner-cups">
     <span class="cup-float-label">A桌</span>
     <button class="btn-cup-sub" onclick="changeCup('a',-1)">−</button>
@@ -477,13 +480,8 @@
   </div>
 </div>
 
-<!-- 右下角：B桌控制 + 杯数 -->
+<!-- 右下角：B桌杯数 -->
 <div class="corner-panel corner-panel-b">
-  <div class="corner-ctrl controls-area">
-    <button class="btn btn-start" onclick="startT('b')">▶ 开始</button>
-    <button class="btn btn-pause" onclick="pauseT('b')">⏸ 暂停</button>
-    <button class="btn btn-reset" onclick="resetT('b')">↺ 重置</button>
-  </div>
   <div class="corner-cups">
     <span class="cup-float-label">B桌</span>
     <button class="btn-cup-sub" onclick="changeCup('b',-1)">−</button>
@@ -491,9 +489,30 @@
   </div>
 </div>
 
-<!-- 底栏：筹码 -->
+<!-- 底栏 -->
 <div class="bottombar">
-  <div class="chips-strip" id="chips-strip"></div>
+  <!-- 控制行：TV模式隐藏 -->
+  <div class="bottombar-controls">
+    <div class="controls-area">
+      <button class="btn btn-start" onclick="startT('a')">▶ A开始</button>
+      <button class="btn btn-pause" onclick="pauseT('a')">⏸ 暂停</button>
+      <button class="btn btn-reset" onclick="resetT('a')">↺ 重置</button>
+      <div class="settings-inline">
+        <span class="settings-label">每级</span>
+        <input class="settings-input" type="number" id="dur" value="6" min="1" max="120" onchange="setDuration()">
+        <span class="settings-label">分</span>
+      </div>
+    </div>
+    <div class="controls-area right">
+      <button class="btn btn-start" onclick="startT('b')">▶ B开始</button>
+      <button class="btn btn-pause" onclick="pauseT('b')">⏸ 暂停</button>
+      <button class="btn btn-reset" onclick="resetT('b')">↺ 重置</button>
+    </div>
+  </div>
+  <!-- 筹码行：TV模式保留 -->
+  <div class="bottombar-chips">
+    <div class="chips-strip" id="chips-strip"></div>
+  </div>
 </div>
 
 <script>
