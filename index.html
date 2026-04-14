@@ -177,43 +177,53 @@
     }
     .btn-cup-add:hover, .btn-cup-sub:hover { transform:scale(1.08); }
 
-    /* 浮动杯数面板 */
-    .cup-float {
+    /* 左右角落浮窗：控制 + 杯数 */
+    .corner-panel {
       position: fixed;
-      bottom: 72px;
+      bottom: 18px;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-start;
+    }
+    .corner-panel-a { left: 20px; align-items: flex-start; }
+    .corner-panel-b { right: 20px; align-items: flex-end; }
+
+    .corner-ctrl {
       display: flex;
       align-items: center;
-      gap: 10px;
-      z-index: 50;
+      gap: 6px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(201,149,58,0.25);
+      border-radius: 10px;
+      padding: 7px 12px;
+      flex-wrap: wrap;
+    }
+    .corner-cups {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       background: rgba(0,0,0,0.55);
       border: 1px solid rgba(201,149,58,0.3);
-      border-radius: 12px;
-      padding: 8px 14px;
+      border-radius: 10px;
+      padding: 7px 12px;
     }
-    .cup-float-a { left: 28px; }
-    .cup-float-b { right: 28px; }
     .cup-float-label {
       color: #c9953a;
       font-size: clamp(11px, 1.2vw, 15px);
       letter-spacing: 2px;
     }
-    .cup-float-num {
-      color: #f5f0e8;
-      font-size: clamp(22px, 3vw, 38px);
-      font-weight: 700;
-      min-width: 32px;
-      text-align: center;
-      line-height: 1;
-    }
+    body.tv-mode .corner-ctrl  { display: none; }
+    body.tv-mode .corner-panel { bottom: 18px; }
 
     /* ── 底栏 ── */
     .bottombar {
       border-top: 1px solid rgba(201,149,58,0.2);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
       align-items: center;
-      padding: 6px 16px;
-      gap: 8px;
+      justify-content: center;
+      padding: 8px 20px;
       flex-shrink: 0;
     }
 
@@ -403,9 +413,8 @@
 </div>
 
 <!-- 顶栏 -->
-<div class="topbar" style="position:relative">
+<div class="topbar">
   <div class="brand">27 NUTS · BAR</div>
-  <div class="chips-strip" id="chips-strip"></div>
   <div class="topbar-right">
     <button class="cfg-btn" onclick="openCfg()" title="配置级别">⚙️</button>
     <button class="tv-btn"  onclick="toggleTV()" title="TV模式">📺</button>
@@ -449,26 +458,10 @@
 
 </div>
 
-<!-- 左下浮动：A桌加减 -->
-<div class="cup-float cup-float-a">
-  <span class="cup-float-label">A桌</span>
-  <button class="btn-cup-sub" onclick="changeCup('a',-1)">−</button>
-  <button class="btn-cup-add" onclick="changeCup('a',1)">+</button>
-</div>
-
-<!-- 右下浮动：B桌加减 -->
-<div class="cup-float cup-float-b">
-  <span class="cup-float-label">B桌</span>
-  <button class="btn-cup-sub" onclick="changeCup('b',-1)">−</button>
-  <button class="btn-cup-add" onclick="changeCup('b',1)">+</button>
-</div>
-
-<!-- 底栏 -->
-<div class="bottombar">
-
-  <!-- A桌控制 -->
-  <div class="controls-area">
-    <button class="btn btn-start" onclick="startT('a')">▶ A开始</button>
+<!-- 左下角：A桌控制 + 杯数 -->
+<div class="corner-panel corner-panel-a">
+  <div class="corner-ctrl controls-area">
+    <button class="btn btn-start" onclick="startT('a')">▶ 开始</button>
     <button class="btn btn-pause" onclick="pauseT('a')">⏸ 暂停</button>
     <button class="btn btn-reset" onclick="resetT('a')">↺ 重置</button>
     <div class="settings-inline">
@@ -477,14 +470,30 @@
       <span class="settings-label">分</span>
     </div>
   </div>
+  <div class="corner-cups">
+    <span class="cup-float-label">A桌</span>
+    <button class="btn-cup-sub" onclick="changeCup('a',-1)">−</button>
+    <button class="btn-cup-add" onclick="changeCup('a',1)">+</button>
+  </div>
+</div>
 
-  <!-- B桌控制 -->
-  <div class="controls-area right">
-    <button class="btn btn-start" onclick="startT('b')">▶ B开始</button>
+<!-- 右下角：B桌控制 + 杯数 -->
+<div class="corner-panel corner-panel-b">
+  <div class="corner-ctrl controls-area">
+    <button class="btn btn-start" onclick="startT('b')">▶ 开始</button>
     <button class="btn btn-pause" onclick="pauseT('b')">⏸ 暂停</button>
     <button class="btn btn-reset" onclick="resetT('b')">↺ 重置</button>
   </div>
+  <div class="corner-cups">
+    <span class="cup-float-label">B桌</span>
+    <button class="btn-cup-sub" onclick="changeCup('b',-1)">−</button>
+    <button class="btn-cup-add" onclick="changeCup('b',1)">+</button>
+  </div>
+</div>
 
+<!-- 底栏：筹码 -->
+<div class="bottombar">
+  <div class="chips-strip" id="chips-strip"></div>
 </div>
 
 <script>
