@@ -304,12 +304,15 @@
 
     /* ── 涨盲动画 ── */
     .level-flash {
-      position:fixed; inset:0; z-index:200;
+      position:fixed; top:0; bottom:0; z-index:200;
+      width:50%;
       display:flex; flex-direction:column;
       align-items:center; justify-content:center; gap:14px;
       background:rgba(0,0,0,0.82);
       pointer-events:none; opacity:0;
     }
+    .level-flash.side-a { left:0; }
+    .level-flash.side-b { right:0; }
     .level-flash.show { animation:flashAnim 3.2s ease forwards; }
     @keyframes flashAnim { 0%{opacity:0} 12%{opacity:1} 75%{opacity:1} 100%{opacity:0} }
     .lf-tag    { color:#c9953a; font-size:clamp(16px,2vw,28px); letter-spacing:6px; text-transform:uppercase; }
@@ -568,9 +571,7 @@
     const s = T[id];
     if (s.timeLeft > 0) {
       s.timeLeft--;
-      if (s.timeLeft === 60 && !s.warned) {
-        s.warned = true; playWarning();
-      }
+      if (s.timeLeft === 60) s.warned = true;
     } else if (s.level < BLINDS.length-1) {
       s.level++; s.timeLeft = s.duration; s.warned = false;
       playLevelUp(); showLevelFlash(id);
@@ -660,7 +661,9 @@
     document.getElementById('lf-blinds').textContent = `${b.sb.toLocaleString()} / ${b.bb.toLocaleString()}`;
     document.getElementById('lf-level').textContent  = `LEVEL ${T[id].level+1}`;
     const el = document.getElementById('level-flash');
-    el.classList.remove('show'); void el.offsetWidth; el.classList.add('show');
+    el.classList.remove('show', 'side-a', 'side-b');
+    void el.offsetWidth;
+    el.classList.add('show', id === 'a' ? 'side-a' : 'side-b');
   }
 
   // ── 配置模块 ──
