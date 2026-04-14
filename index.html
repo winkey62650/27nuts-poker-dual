@@ -176,6 +176,35 @@
     }
     .btn-cup-add:hover, .btn-cup-sub:hover { transform:scale(1.08); }
 
+    /* 浮动杯数面板 */
+    .cup-float {
+      position: fixed;
+      bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 50;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(201,149,58,0.3);
+      border-radius: 12px;
+      padding: 8px 14px;
+    }
+    .cup-float-a { left: 28px; }
+    .cup-float-b { right: 28px; }
+    .cup-float-label {
+      color: #c9953a;
+      font-size: clamp(11px, 1.2vw, 15px);
+      letter-spacing: 2px;
+    }
+    .cup-float-num {
+      color: #f5f0e8;
+      font-size: clamp(22px, 3vw, 38px);
+      font-weight: 700;
+      min-width: 32px;
+      text-align: center;
+      line-height: 1;
+    }
+
     /* ── 底栏 ── */
     .bottombar {
       border-top: 1px solid rgba(201,149,58,0.2);
@@ -386,12 +415,6 @@
       <div class="next-label">下一级别</div>
       <div class="next-value" id="a-next">200 / 400</div>
     </div>
-    <div class="cups-row">
-      <div class="cups-label">总杯数</div>
-      <button class="btn-cup-sub" onclick="changeCup('a',-1)">−</button>
-      <div class="cups-number" id="a-cups">0</div>
-      <button class="btn-cup-add" onclick="changeCup('a',1)">+</button>
-    </div>
   </div>
 
   <!-- B桌 -->
@@ -406,14 +429,24 @@
       <div class="next-label">下一级别</div>
       <div class="next-value" id="b-next">200 / 400</div>
     </div>
-    <div class="cups-row">
-      <div class="cups-label">总杯数</div>
-      <button class="btn-cup-sub" onclick="changeCup('b',-1)">−</button>
-      <div class="cups-number" id="b-cups">0</div>
-      <button class="btn-cup-add" onclick="changeCup('b',1)">+</button>
-    </div>
   </div>
 
+</div>
+
+<!-- 左下浮动：A桌杯数 -->
+<div class="cup-float cup-float-a">
+  <span class="cup-float-label">A桌</span>
+  <button class="btn-cup-sub" onclick="changeCup('a',-1)">−</button>
+  <span class="cup-float-num" id="a-cups">0</span>
+  <button class="btn-cup-add" onclick="changeCup('a',1)">+</button>
+</div>
+
+<!-- 右下浮动：B桌杯数 -->
+<div class="cup-float cup-float-b">
+  <span class="cup-float-label">B桌</span>
+  <button class="btn-cup-sub" onclick="changeCup('b',-1)">−</button>
+  <span class="cup-float-num" id="b-cups">0</span>
+  <button class="btn-cup-add" onclick="changeCup('b',1)">+</button>
 </div>
 
 <!-- 底栏 -->
