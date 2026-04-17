@@ -219,9 +219,18 @@
     body.tv-mode .corner-ctrl  { display: none; }
     body.tv-mode .corner-panel { bottom: 18px; }
 
+    /* ── 独立筹码区 ── */
+    .chips-dock {
+      border-top: 1px solid rgba(201,149,58,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px max(20px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+      flex-shrink: 0;
+    }
+
     /* ── 底栏 ── */
     .bottombar {
-      border-top: 1px solid rgba(201,149,58,0.2);
       display: flex;
       flex-direction: column;
       align-items: stretch;
@@ -233,12 +242,6 @@
       justify-content: space-between;
       padding: 7px max(20px, env(safe-area-inset-right)) 4px max(20px, env(safe-area-inset-left));
       gap: 8px;
-    }
-    .bottombar-chips {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px max(20px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
     }
     body.tv-mode .bottombar-controls { display: none; }
 
@@ -299,7 +302,7 @@
     }
     .btn-sync:hover { background: rgba(201,149,58,0.25); }
 
-    /* 筹码放顶栏中间 */
+    /* 独立筹码条 */
     .chips-strip {
       display: flex;
       gap: 16px;
@@ -307,9 +310,6 @@
       justify-content: center;
       flex-wrap: nowrap;
       flex-shrink: 0;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
     }
     .chip-wrap {
       display: flex; flex-direction: column; align-items: center; gap: 4px;
@@ -419,7 +419,7 @@
         padding: 4px max(10px, env(safe-area-inset-right)) 3px max(10px, env(safe-area-inset-left));
         gap: 6px;
       }
-      .bottombar-chips {
+      .chips-dock {
         padding: 2px max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
       }
       .controls-area { gap: 5px; }
@@ -470,7 +470,7 @@
       .bottombar-controls {
         padding: 3px max(6px, env(safe-area-inset-right)) 2px max(6px, env(safe-area-inset-left));
       }
-      .bottombar-chips {
+      .chips-dock {
         padding: 1px max(6px, env(safe-area-inset-right)) max(6px, env(safe-area-inset-bottom)) max(6px, env(safe-area-inset-left));
       }
       .controls-area { gap: 4px; }
@@ -588,6 +588,11 @@
   </div>
 </div>
 
+<!-- 独立筹码区 -->
+<div class="chips-dock">
+  <div class="chips-strip" id="chips-strip"></div>
+</div>
+
 <!-- 底栏 -->
 <div class="bottombar">
   <!-- 控制行：TV模式隐藏 -->
@@ -607,10 +612,6 @@
       <button class="btn btn-pause" onclick="pauseT('b')">⏸ 暂停</button>
       <button class="btn btn-reset" onclick="resetT('b')">↺ 重置</button>
     </div>
-  </div>
-  <!-- 筹码行：TV模式保留 -->
-  <div class="bottombar-chips">
-    <div class="chips-strip" id="chips-strip"></div>
   </div>
 </div>
 
