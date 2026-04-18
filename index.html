@@ -772,7 +772,50 @@
     alert(`A桌 ${T.a.cups} 杯  +  B桌 ${T.b.cups} 杯  =  总计 ${total} 杯`);
   }
 
-  function toggleTV() { document.body.classList.toggle('tv-mode'); }
+  function getFullscreenEl() {
+    return document.fullscreenElement || document.webkitFullscreenElement || null;
+  }
+
+  async function enterFullscreen() {
+    const el = document.documentElement;
+    if (el.requestFullscreen) {
+      await el.requestFullscreen();
+    } else if (el.webkitRequestFullscreen) {
+      el.webkitRequestFullscreen();
+    }
+  }
+
+  async function exitFullscreen() {
+    if (document.exitFullscreen) {
+      await document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+
+  async function toggleTV() {
+    const shouldEnter = !document.body.classList.contains('tv-mode');
+    document.body.classList.toggle('tv-mode', shouldEnter);
+
+    try {
+      if (shouldEnter && !getFullscreenEl()) {
+        await enterFullscreen();
+      } else if (!shouldEnter && getFullscreenEl()) {
+        await exitFullscreen();
+      }
+    } catch (err) {
+      console.warn('Fullscreen request was blocked or not supported.', err);
+    }
+  }
+
+  function syncTVModeWithFullscreen() {
+    if (!getFullscreenEl()) {
+      document.body.classList.remove('tv-mode');
+    }
+  }
+
+  document.addEventListener('fullscreenchange', syncTVModeWithFullscreen);
+  document.addEventListener('webkitfullscreenchange', syncTVModeWithFullscreen);
 
   // ── 音效 ──
   function playTone(freq, startTime, duration, ctx, gainVal=0.25) {
